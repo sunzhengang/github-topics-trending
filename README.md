@@ -265,82 +265,79 @@ sqlite3 data/github-trending.db "SELECT repo_name, summary, category FROM repos_
 
 ---
 
-## GitHub Actions
+## GitHub Pages 配置
 
-### GitHub Pages 完整配置教程
+### 启用 GitHub Pages
 
-#### 第一步：启用 GitHub Pages
+#### 第一步：配置 Pages
 
-1. 进入你的 GitHub 仓库页面
-   ```
-   https://github.com/geekjourneyx/github-topics-trending
-   ```
+1. 进入仓库 **Settings** → **Pages**
 
-2. 点击顶部 **Settings**（设置）标签
-
-3. 向下滚动左侧菜单，找到 **Pages** 并点击
-
-4. **Build and deployment** 配置：
-   - **Source**: 选择 **GitHub Actions** （不是 Deploy from a branch）
+2. **Build and deployment** 配置：
+   - **Source**: **Deploy from a branch**
+   - **Branch**: **gh-pages** 分支
+   - **Folder**: **/ (root)**
    - 点击 **Save**
 
-5. 等待几秒，刷新页面，你会看到：
-   > **Your site is live at**
-   > **https://geekjourneyx.github.io/github-topics-trending/**
+#### 第二步：确保仓库为 Public
 
-#### 第二步：配置 Actions 权限
+1. 仓库 **Settings** → **General**
+2. 滚动到底部 **Danger Zone**
+3. **Change repository visibility** → 选择 **Public**
+4. 确认更改
 
-1. **Settings** → **Actions** → **General**
-
-2. 滚动到 **Workflow permissions**
-
-3. 选择 **☑️ Read and write permissions**
-
-4. 点击 **Save**
-
-#### 第三步：配置 Secrets
-
-1. **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
-
-2. 添加以下 Secrets：
-
-| Name | Value |
-|------|-------|
-| `GH_TOKEN` | 你的 GitHub PAT |
-| `TOPIC` | `claude-code` |
-| `ZHIPU_API_KEY` | 智谱 API Key |
-| `RESEND_API_KEY` | Resend API Key |
-| `EMAIL_TO` | 你的邮箱地址 |
-
-#### 第四步：手动触发测试
-
-1. 点击 **Actions** 标签
-
-2. 选择 **GitHub Topics Trending**
-
-3. 点击 **Run workflow** → **Run workflow**
-
-4. 等待运行完成（1-3 分钟）
-
-#### 第五步：访问网站
+#### 第三步：访问网站
 
 ```
 https://geekjourneyx.github.io/github-topics-trending/
 ```
 
+⚠️ **注意**：首次部署后需要等待 **5-10 分钟**才能访问。
+
+---
+
+## GitHub Actions 配置
+
+### Secrets 配置
+
+1. **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+
+2. 添加以下 Secrets：
+
+| Name | 必需 | Value |
+|------|------|-------|
+| `GH_TOKEN` | ✅ | 你的 GitHub PAT |
+| `TOPIC` | - | `claude-code`（追踪的话题） |
+| `ZHIPU_API_KEY` | ✅ | 智谱 API Key |
+| `RESEND_API_KEY` | ✅ | Resend API Key |
+| `EMAIL_TO` | ✅ | 接收日报的邮箱 |
+
+### Actions 权限配置
+
+1. **Settings** → **Actions** → **General**
+2. **Workflow permissions** → 选择 **Read and write permissions**
+3. 点击 **Save**
+
+### 手动触发
+
+1. 点击 **Actions** 标签
+2. 选择 **GitHub Topics Trending** workflow
+3. 点击 **Run workflow** → **Run workflow**
+
 ### 定时执行
 
 默认每天 **UTC 02:00**（北京时间 10:00）自动运行。
 
-修改时间：编辑 `.github/workflows/github-trending.yml` 中的 `cron` 表达式。
+---
 
-### 故障排查
+## 故障排查
 
 | 问题 | 解决方案 |
 |------|----------|
-| 404 错误 | 确保已手动运行 Actions 生成 docs/ 目录 |
+| 404 错误 | 确保仓库为 Public，等待 5-10 分钟让 GitHub Pages 生效 |
 | 403 Permission denied | 检查 Workflow permissions 是否为 Read and write |
-| 网站内容不是最新 | GitHub Pages 有缓存，强制刷新 `Ctrl+Shift+R` |
+| Actions 失败 | 查看 Actions 日志，检查 Secrets 是否配置正确 |
+| 网站内容不是最新 | GitHub Pages 有缓存，强制刷新 `Ctrl+Shift+R` 或加 `?v=123` |
 
 ---
 
