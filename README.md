@@ -198,9 +198,30 @@ python -m src.main --fetch-only
 
 ### GitHub Token 配置
 
-1. 访问 GitHub Settings > Developer settings > Personal access tokens
-2. 生成新 Token，勾选 `public_repo` 权限即可
-3. 将 Token 添加到环境变量或 GitHub Secrets
+#### 申请 Personal Access Token (PAT)
+
+1. 登录 GitHub
+2. 点击头像 → **Settings**
+3. 左侧菜单最下方 → **Developer settings**
+4. **Personal access tokens** → **Tokens (classic)**
+5. **Generate new token** → **Generate new token (classic)**
+6. 配置 Token：
+   - **Note**: 输入 `GitHub Topics Bot`
+   - **Expiration**: 选择有效期（建议 `90 days` 或 `No expiration`）
+   - **勾选权限**:
+     - ☑️ `public_repo` (访问公共仓库)
+   - 点击 **Generate token**
+7. 复制 token（只显示一次！请妥善保存）
+
+#### 在 GitHub Actions 中配置
+
+1. 进入 GitHub 仓库页面
+2. **Settings** → **Secrets and variables** → **Actions**
+3. **New repository secret**
+4. 配置:
+   - **Name**: `GITHUB_TOKEN`
+   - **Value**: 粘贴你的 token
+5. 点击 **Add secret**
 
 ### Resend 配置
 
