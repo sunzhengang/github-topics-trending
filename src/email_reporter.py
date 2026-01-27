@@ -3,7 +3,7 @@ Email Reporter - 生成 HTML 邮件报告
 GitHub Topics Trending 专业邮件排版
 """
 from typing import Dict, List
-from src.config import GITHUB_TOPIC, get_theme, format_number
+from src.config import TOPIC, get_theme, format_number
 
 
 class EmailReporter:
@@ -17,7 +17,7 @@ class EmailReporter:
             theme: 主题名称
         """
         self.theme = get_theme(theme)
-        self.topic = GITHUB_TOPIC
+        self.topic = TOPIC
 
     def generate_email_html(self, trends: Dict, date: str) -> str:
         """

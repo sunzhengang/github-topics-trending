@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Dict, List
 from pathlib import Path
 
-from src.config import OUTPUT_DIR, GITHUB_TOPIC, SITE_META, get_theme, CATEGORIES, format_number
+from src.config import OUTPUT_DIR, TOPIC, SITE_META, get_theme, CATEGORIES, format_number
 
 
 class WebGenerator:
@@ -24,7 +24,7 @@ class WebGenerator:
         """
         self.output_dir = Path(output_dir or OUTPUT_DIR)
         self.theme = get_theme(theme)
-        self.topic = GITHUB_TOPIC
+        self.topic = TOPIC
         self.meta = SITE_META
 
         # 确保输出目录存在

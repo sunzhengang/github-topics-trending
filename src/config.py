@@ -19,8 +19,8 @@ CLAUDE_MAX_TOKENS = 8192
 # ============================================================================
 # GitHub API 配置
 # ============================================================================
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_TOPIC = os.getenv("GITHUB_TOPIC", "claude-code")
+GITHUB_TOKEN = os.getenv("GH_TOKEN")
+TOPIC = os.getenv("TOPIC", "claude-code")
 GITHUB_API_BASE = "https://api.github.com"
 GITHUB_PER_PAGE = 100  # GitHub API max per page
 GITHUB_MAX_PAGES = 10  # Maximum pages to fetch (1000 repos)
@@ -153,10 +153,10 @@ CATEGORIES = {
 # ============================================================================
 SITE_META = {
     "title": "GitHub Topics Trending",
-    "subtitle": f"{GITHUB_TOPIC} 话题趋势追踪",
-    "description": f"追踪 {GITHUB_TOPIC} 话题下的热门 GitHub 项目，AI 智能分析，每日趋势报告",
+    "subtitle": f"{TOPIC} 话题趋势追踪",
+    "description": f"追踪 {TOPIC} 话题下的热门 GitHub 项目，AI 智能分析，每日趋势报告",
     "author": "GitHub Topics Trending",
-    "keywords": ["GitHub", "Trending", "Topics", GITHUB_TOPIC, "开源", "排行榜"]
+    "keywords": ["GitHub", "Trending", "Topics", TOPIC, "开源", "排行榜"]
 }
 
 # ============================================================================

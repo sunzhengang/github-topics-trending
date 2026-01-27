@@ -27,8 +27,8 @@ jobs:
 
       - name: Run trending analysis
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOPIC: ${{ secrets.GITHUB_TOPIC || 'claude-code' }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          TOPIC: ${{ secrets.TOPIC || 'claude-code' }}
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
@@ -47,7 +47,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs

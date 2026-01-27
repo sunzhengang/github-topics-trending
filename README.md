@@ -165,7 +165,7 @@ nano .env
 
 ```bash
 # 设置环境变量
-export GITHUB_TOKEN="your_github_token"
+export GH_TOKEN="your_github_token"
 export ZHIPU_API_KEY="your_api_key"
 export RESEND_API_KEY="your_resend_key"
 export EMAIL_TO="your_email@example.com"
@@ -177,6 +177,13 @@ python -m src.main
 python -m src.main --fetch-only
 ```
 
+**注意**: 环境变量已配置为使用 `GH_TOKEN` 和 `TOPIC`，避免以 `GITHUB_` 开头的 Secret 名称。
+
+```bash
+# 设置环境变量
+export GH_TOKEN="your_github_token"
+export TOPIC="claude-code"
+
 ---
 
 ## 配置说明
@@ -185,8 +192,8 @@ python -m src.main --fetch-only
 
 | 变量 | 必需 | 说明 | 默认值 |
 |-----|------|------|--------|
-| `GITHUB_TOKEN` | Yes | GitHub Personal Access Token | - |
-| `GITHUB_TOPIC` | No | 要追踪的 GitHub Topic | `claude-code` |
+| `GH_TOKEN` | Yes | GitHub Personal Access Token | - |
+| `TOPIC` | No | 要追踪的 GitHub Topic | `claude-code` |
 | `ZHIPU_API_KEY` | Yes | Claude API Key（智谱代理） | - |
 | `ANTHROPIC_BASE_URL` | No | Claude API 地址 | `https://open.bigmodel.cn/api/anthropic` |
 | `RESEND_API_KEY` | Yes | Resend API Key | - |
@@ -264,8 +271,8 @@ sqlite3 data/github-trending.db "SELECT repo_name, summary, category FROM repos_
 
 1. Fork 本仓库
 2. 在 GitHub Settings > Secrets and variables > Actions 中添加：
-   - `GITHUB_TOKEN`
-   - `GITHUB_TOPIC`（可选，默认 `claude-code`）
+   - `GH_TOKEN`
+   - `TOPIC`（可选，默认 `claude-code`）
    - `ZHIPU_API_KEY`
    - `RESEND_API_KEY`
    - `EMAIL_TO`（可选）
@@ -437,9 +444,9 @@ schedule:
 
 ### 如何更换追踪的话题？
 
-修改环境变量 `GITHUB_TOPIC`：
+修改环境变量 `TOPIC`：
 ```bash
-export GITHUB_TOPIC="your-topic"
+export TOPIC="your-topic"
 ```
 
 ---

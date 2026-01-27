@@ -8,7 +8,7 @@ from typing import Dict, List, Optional
 from datetime import datetime, timedelta
 
 from src.config import (
-    GITHUB_TOKEN, GITHUB_TOPIC, GITHUB_API_BASE,
+    GITHUB_TOKEN, TOPIC, GITHUB_API_BASE,
     GITHUB_PER_PAGE, GITHUB_MAX_PAGES, GITHUB_SEARCH_SORT,
     GITHUB_SEARCH_ORDER, FETCH_REQUEST_DELAY
 )
@@ -26,7 +26,7 @@ class GitHubFetcher:
             topic: 要搜索的 GitHub Topic
         """
         self.token = token or GITHUB_TOKEN
-        self.topic = topic or GITHUB_TOPIC
+        self.topic = topic or TOPIC
         self.api_base = GITHUB_API_BASE
         self.per_page = GITHUB_PER_PAGE
         self.max_pages = GITHUB_MAX_PAGES

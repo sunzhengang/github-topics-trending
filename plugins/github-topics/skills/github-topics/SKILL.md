@@ -31,8 +31,8 @@ python -m src.main --fetch-only
 
 | 变量 | 说明 | 必需 |
 |------|------|------|
-| `GITHUB_TOKEN` | GitHub Personal Access Token | 是 |
-| `GITHUB_TOPIC` | 要追踪的 GitHub Topic (默认: claude-code) | 否 |
+| `GH_TOKEN` | GitHub Personal Access Token | 是 |
+| `TOPIC` | 要追踪的 GitHub Topic (默认: claude-code) | 否 |
 | `ZHIPU_API_KEY` | Claude API Key (智谱代理) | 是 |
 | `RESEND_API_KEY` | Resend 邮件服务 API Key | 是 |
 | `EMAIL_TO` | 收件人邮箱 | 是 |

@@ -20,7 +20,7 @@ from src.config import (
     DB_RETENTION_DAYS,
     TOP_N_DETAILS,
     GITHUB_TOKEN,
-    GITHUB_TOPIC,
+    TOPIC,
     OUTPUT_DIR
 )
 from src.github_fetcher import GitHubFetcher
@@ -94,7 +94,7 @@ def main():
     # 获取今日日期
     today = get_today_date()
     print(f"[目标日期] {today}")
-    print(f"[话题标签] #{GITHUB_TOPIC}")
+    print(f"[话题标签] #{TOPIC}")
     print(f"   (北京时间: {datetime.now(timezone.utc)} + 8h)")
     print()
 
@@ -166,7 +166,7 @@ def main():
         sender = ResendSender(RESEND_API_KEY)
         result = sender.send_email(
             to=EMAIL_TO,
-            subject=f"📊 GitHub Topics Daily - #{GITHUB_TOPIC} - {today}",
+            subject=f"📊 GitHub Topics Daily - #{TOPIC} - {today}",
             html_content=html_content,
             from_email=RESEND_FROM_EMAIL
         )
@@ -195,7 +195,7 @@ def main():
         print("║   ✅ 任务完成!                                              ║")
         print("║                                                              ║")
         print(f"║   日期: {today}                                            ║")
-        print(f"║   话题: #{GITHUB_TOPIC}                                            ║")
+        print(f"║   话题: #{TOPIC}                                            ║")
         print(f"║   仓库数: {len(today_repos)}                                    ║")
         print(f"║   新晋: {len(trends['new_entries'])} | 跌出: {len(trends['dropped_entries'])}                         ║")
         print(f"║   暴涨: {len(trends['surging'])}                                                ║")
@@ -222,7 +222,7 @@ def main_fetch_only():
 
     today = get_today_date()
     print(f"[目标日期] {today}")
-    print(f"[话题标签] #{GITHUB_TOPIC}")
+    print(f"[话题标签] #{TOPIC}")
     print()
 
     db = Database(DB_PATH)
