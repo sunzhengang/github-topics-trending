@@ -267,16 +267,66 @@ sqlite3 data/github-trending.db "SELECT repo_name, summary, category FROM repos_
 
 ## GitHub Actions
 
-### 自动化部署
+### GitHub Pages 完整配置教程
 
-1. Fork 本仓库
-2. 在 GitHub Settings > Secrets and variables > Actions 中添加：
-   - `GH_TOKEN`
-   - `TOPIC`（可选，默认 `claude-code`）
-   - `ZHIPU_API_KEY`
-   - `RESEND_API_KEY`
-   - `EMAIL_TO`（可选）
-3. 启用 Actions 和 GitHub Pages
+#### 第一步：启用 GitHub Pages
+
+1. 进入你的 GitHub 仓库页面
+   ```
+   https://github.com/geekjourneyx/github-topics-trending
+   ```
+
+2. 点击顶部 **Settings**（设置）标签
+
+3. 向下滚动左侧菜单，找到 **Pages** 并点击
+
+4. **Build and deployment** 配置：
+   - **Source**: 选择 **GitHub Actions** （不是 Deploy from a branch）
+   - 点击 **Save**
+
+5. 等待几秒，刷新页面，你会看到：
+   > **Your site is live at**
+   > **https://geekjourneyx.github.io/github-topics-trending/**
+
+#### 第二步：配置 Actions 权限
+
+1. **Settings** → **Actions** → **General**
+
+2. 滚动到 **Workflow permissions**
+
+3. 选择 **☑️ Read and write permissions**
+
+4. 点击 **Save**
+
+#### 第三步：配置 Secrets
+
+1. **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+
+2. 添加以下 Secrets：
+
+| Name | Value |
+|------|-------|
+| `GH_TOKEN` | 你的 GitHub PAT |
+| `TOPIC` | `claude-code` |
+| `ZHIPU_API_KEY` | 智谱 API Key |
+| `RESEND_API_KEY` | Resend API Key |
+| `EMAIL_TO` | 你的邮箱地址 |
+
+#### 第四步：手动触发测试
+
+1. 点击 **Actions** 标签
+
+2. 选择 **GitHub Topics Trending**
+
+3. 点击 **Run workflow** → **Run workflow**
+
+4. 等待运行完成（1-3 分钟）
+
+#### 第五步：访问网站
+
+```
+https://geekjourneyx.github.io/github-topics-trending/
+```
 
 ### 定时执行
 
@@ -284,9 +334,13 @@ sqlite3 data/github-trending.db "SELECT repo_name, summary, category FROM repos_
 
 修改时间：编辑 `.github/workflows/github-trending.yml` 中的 `cron` 表达式。
 
-### 手动触发
+### 故障排查
 
-在 GitHub Actions 页面点击 "Run workflow" 按钮手动执行。
+| 问题 | 解决方案 |
+|------|----------|
+| 404 错误 | 确保已手动运行 Actions 生成 docs/ 目录 |
+| 403 Permission denied | 检查 Workflow permissions 是否为 Read and write |
+| 网站内容不是最新 | GitHub Pages 有缓存，强制刷新 `Ctrl+Shift+R` |
 
 ---
 
