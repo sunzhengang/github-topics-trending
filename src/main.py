@@ -62,7 +62,10 @@ def check_environment() -> bool:
     """
     errors = []
 
-    if not GITHUB_TOKEN:
+    # 调试：输出 Token 信息（不暴露完整 Token）
+    if GITHUB_TOKEN:
+        print(f"✅ GH_TOKEN 已配置 (长度: {len(GITHUB_TOKEN)} 字符, 前4位: {GITHUB_TOKEN[:4]}...)")
+    else:
         errors.append("GITHUB_TOKEN 环境变量未设置 (请提供 GitHub Personal Access Token)")
 
     if not ZHIPU_API_KEY:
