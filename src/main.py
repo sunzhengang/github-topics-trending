@@ -68,11 +68,9 @@ def check_environment() -> bool:
     if not ZHIPU_API_KEY:
         errors.append("ZHIPU_API_KEY 环境变量未设置 (请提供 Claude API Key)")
 
-    if not RESEND_API_KEY:
-        errors.append("RESEND_API_KEY 环境变量未设置 (请提供 Resend API Key)")
-
-    if not EMAIL_TO:
-        errors.append("EMAIL_TO 环境变量未设置 (请提供收件人邮箱)")
+    # 邮件配置是可选的
+    if not RESEND_API_KEY or not EMAIL_TO:
+        print("⚠️ 邮件功能未配置，将跳过发送邮件步骤")
 
     if errors:
         print("❌ 环境变量配置错误:")
@@ -161,21 +159,25 @@ def main():
         print(f"   HTML 长度: {len(html_content)} 字符")
         print()
 
-        # 7. 发送邮件
-        print(f"[步骤 7/9] 发送邮件...")
-        sender = ResendSender(RESEND_API_KEY)
-        result = sender.send_email(
-            to=EMAIL_TO,
-            subject=f"📊 GitHub Topics Daily - #{TOPIC} - {today}",
-            html_content=html_content,
-            from_email=RESEND_FROM_EMAIL
-        )
+        # 7. 发送邮件（可选）
+        if RESEND_API_KEY and EMAIL_TO:
+            print(f"[步骤 7/9] 发送邮件...")
+            sender = ResendSender(RESEND_API_KEY)
+            result = sender.send_email(
+                to=EMAIL_TO,
+                subject=f"📊 GitHub Topics Daily - #{TOPIC} - {today}",
+                html_content=html_content,
+                from_email=RESEND_FROM_EMAIL
+            )
 
-        if result["success"]:
-            print(f"   ✅ 邮件发送成功! ID: {result['id']}")
+            if result["success"]:
+                print(f"   ✅ 邮件发送成功! ID: {result['id']}")
+            else:
+                print(f"   ❌ 邮件发送失败: {result['message']}")
+            print()
         else:
-            print(f"   ❌ 邮件发送失败: {result['message']}")
-        print()
+            print(f"[步骤 7/9] 跳过发送邮件（未配置）")
+            print()
 
         # 8. 生成 GitHub Pages 网站
         print(f"[步骤 8/9] 生成 GitHub Pages 网站...")
